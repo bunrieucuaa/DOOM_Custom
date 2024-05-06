@@ -2,25 +2,30 @@ import pygame as pg
 import sys #thu vien builtin cua python
 from settings import *
 from map import *
+from player import *
 
 class Game:
     def __init__(self):
         pg.init() #Khởi tạo game
         self.screen = pg.display.set_mode(RES) #Tạo một cửa sổ trò chơi với kích thước được định nghĩa ở setting
         self.clock = pg.time.Clock() #Khởi tạo một đối tượng clock để theo dõi thời gian trong trò chơi
+        self.delta_time = 1
         self.new_game()
 
     def new_game(self):
         self.map = Map(self)
+        self.player = Player(self)
 
     def update(self):
         pg.display.flip() #Cập nhật màn hình với những thay đổi đã được vẽ.
-        self.clock.tick(FPS) # Điều chỉnh tốc độ của trò chơi để đảm bảo rằng nó chạy với FPS mong muốn.
+        self.delta_time = self.clock.tick(FPS) # Điều chỉnh tốc độ của trò chơi để đảm bảo rằng nó chạy với FPS mong muốn.
+        self.player.update()
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
     def draw(self):
         self.screen.fill('black')
         self.map.draw()
+        self.player.draw()
 
     def check_events(self):
         for event in pg.event.get():
