@@ -1,1 +1,3 @@
-last check: 3.50
+last check: 3.50 
+
+last check: 7:17 - Next lesson will create func to check the wall (7/5/2024)
