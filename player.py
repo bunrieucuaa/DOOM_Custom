@@ -39,8 +39,7 @@ class Player:
             dx += -speed_sin
             dy += speed_cos
 
-        self.x += dx
-        self.y += dy
+        self.check_wall_collision(dx, dy)
 
         #Áp dụng để quay bằng phím left và right
         if keys[pg.K_LEFT]:
@@ -52,16 +51,22 @@ class Player:
         #tau = 2pi 
         # Đây thường được sử dụng để đảm bảo rằng góc hướng được biểu diễn trong khoảng từ 0 đến 2π
 
+    def check_wall(self, x, y): #kiểm tra tọa độ nếu chạm vào tường
+        return (x, y) not in self.game.map.world_map
 
+    def check_wall_collision(self, dx, dy):
+        if self.check_wall(int(self.x + dx), int(self.y)):
+            self.x += dx
+        if self.check_wall(int(self.x), int(self.y + dy)):
+            self.y += dy
+        #chỉ cho phép di chuyển khi không có tường
 
     #Hàm draw được sử dụng để vẽ người chơi lên màn hình của trò chơi
     def draw(self):
         #Hàm line để vẽ đường thẳng đại diện cho hướng nhìn của người chơi
-        pg.draw.line(self.game.screen, #
+        pg.draw.line(self.game.screen, 
                     'yellow',
-                    (self.x * 50, self.y * 50), #Điểm bắt đầu của đường thẳng,
-                     #vị trí của người chơi trên màn hình.
-                     # Vị trí này được nhân với 50 để chuyển đổi từ tọa độ logic sang tọa độ pixel trên màn hình
+                    (self.x * 50, self.y * 50),
                     (self.x * 50 + WIDTH * math.cos(self.angle), self.y * 50 + WIDTH * math. sin(self.angle)),
                     2)
 

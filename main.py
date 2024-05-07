@@ -3,6 +3,7 @@ import sys #thu vien builtin cua python
 from settings import *
 from map import *
 from player import *
+from raycasting import *
 
 class Game:
     def __init__(self):
@@ -15,11 +16,13 @@ class Game:
     def new_game(self):
         self.map = Map(self)
         self.player = Player(self)
+        self.raycasting = RayCasting(self)
 
     def update(self):
         pg.display.flip() #Cập nhật màn hình với những thay đổi đã được vẽ.
         self.delta_time = self.clock.tick(FPS) # Điều chỉnh tốc độ của trò chơi để đảm bảo rằng nó chạy với FPS mong muốn.
         self.player.update()
+        self.raycasting.update()
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
     def draw(self):
