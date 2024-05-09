@@ -64,13 +64,13 @@ class Player:
     #Hàm draw được sử dụng để vẽ người chơi lên màn hình của trò chơi
     def draw(self):
         #Hàm line để vẽ đường thẳng đại diện cho hướng nhìn của người chơi
-        pg.draw.line(self.game.screen, 
-                    'yellow',
-                    (self.x * 50, self.y * 50),
-                    (self.x * 50 + WIDTH * math.cos(self.angle), self.y * 50 + WIDTH * math. sin(self.angle)),
-                    2)
+        # pg.draw.line(self.game.screen, 
+        #             'yellow',
+        #             (self.x * 50, self.y * 50),
+        #             (self.x * 50 + WIDTH * math.cos(self.angle), self.y * 50 + WIDTH * math. sin(self.angle)),
+        #             2)
 
-        pg.draw.circle(self.game.screen, 'green', (self.x * 50, self.y * 50), 15)
+        pg.draw.circle(self.game.screen, 'green', (self.x * 100, self.y * 100), 15)
 
 
     def update(self):
