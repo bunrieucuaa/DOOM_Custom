@@ -3,3 +3,6 @@ last check: 3.50
 last check: 7:17 - Next lesson will create func to check the wall (7/5/2024)
 
 last check 13: 03 - Next lesson will learn about 3D (8/5/2024)
+In 3D i know how to made wall by adding texture, also i add backgound, use mouse
+
+last check 24:41 - Next lesson will add more object to make game more ok la (13/5/2024)

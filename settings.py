@@ -13,7 +13,7 @@ PLAYER_POS = 1.5, 5  # mini_map lần đầu xuất hiện
 PLAYER_ANGLE = 0 #góc nhìn nhân vật
 PLAYER_SPEED = 0.004 #tốc độ di chuyển
 PLAYER_ROT_SPEED = 0.002 #tốc độ quay rotation
-
+PLAYER_SIZE_SCALE = 60
 
 #Xác định hướng nhìn của nhân vật
 
@@ -26,3 +26,16 @@ MAX_DEPTH = 20
 
 SCREEN_DIST = HALF_WIDTH / math.tan(HALF_FOV)
 SCALE = WIDTH // NUM_RAYS
+
+TEXTURE_SIZE = 256
+HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
+
+#Thêm tốc độ chuột
+MOUSE_SENSITIVITY = 0.0002
+MOUSE_MAX_REL = 40
+MOUSE_BORDER_LEFT = 100
+MOUSE_BORDER_RIGHT = WIDTH - MOUSE_BORDER_LEFT
+
+
+#Màu sàn nhà
+FLOOR_COLOR = (30, 30, 30)
