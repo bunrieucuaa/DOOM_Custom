@@ -6,3 +6,5 @@ last check 13: 03 - Next lesson will learn about 3D (8/5/2024)
 In 3D i know how to made wall by adding texture, also i add backgound, use mouse
 
 last check 24:41 - Next lesson will add more object to make game more ok la (13/5/2024)
+
+last check 32:31 - Today i add sprite like fire things and it can be animated (14/5/2024)
