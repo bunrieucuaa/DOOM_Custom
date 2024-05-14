@@ -7,6 +7,8 @@ from raycasting import *
 from object_render import *
 from sprite_object import *
 from object_handler import *
+from weapon import *
+from sound import *
 
 class Game:
     def __init__(self):
@@ -23,12 +25,15 @@ class Game:
         self.object_render = ObjectRenderer(self)
         self.raycasting = RayCasting(self)
         self.object_handler = ObjectHandler(self)
+        self.weapon = Weapon(self)
+        self.sound = Sound(self)
 
 
     def update(self):
         self.player.update()
         self.raycasting.update()
         self.object_handler.update()
+        self.weapon.update()
         pg.display.flip() #Cập nhật màn hình với những thay đổi đã được vẽ.
         self.delta_time = self.clock.tick(FPS) # Điều chỉnh tốc độ của trò chơi để đảm bảo rằng nó chạy với FPS mong muốn.
         pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
@@ -36,6 +41,7 @@ class Game:
     def draw(self):
         # self.screen.fill('black')
         self.object_render.draw()
+        self.weapon.draw()
         # self.map.draw()
         # self.player.draw()
 
@@ -44,6 +50,7 @@ class Game:
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit()
+            self.player.single_fire_event(event)
 
     def run(self):
         while True:
