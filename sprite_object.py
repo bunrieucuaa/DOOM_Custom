@@ -3,8 +3,6 @@ from settings import *
 import os #thư viện os để thao tác các tệp và thư mục
 from collections import deque #hàng đợi hai đầu cho phép chúng ta thêm và xóa các phần tử ở cả hai đầu
 
-
-
 #Class cho các chi tiết tĩnh trong trò chơi, ví dụ đây là cây đuốc, bên dưới sẽ làm animated sprites cho 
 #sprites có thể chuyển động được
 class SpriteObject:

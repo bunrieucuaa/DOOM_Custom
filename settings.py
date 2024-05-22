@@ -2,7 +2,7 @@
 
 import math
 
-RES = WIDTH, HEIGHT = 1600, 900
+RES = WIDTH, HEIGHT = 1400, 760
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 FPS = 0
@@ -14,6 +14,7 @@ PLAYER_ANGLE = 0 #góc nhìn nhân vật
 PLAYER_SPEED = 0.004 #tốc độ di chuyển
 PLAYER_ROT_SPEED = 0.002 #tốc độ quay rotation
 PLAYER_SIZE_SCALE = 60
+PLAYER_MAX_HEALTH = 100
 
 #Xác định hướng nhìn của nhân vật
 
