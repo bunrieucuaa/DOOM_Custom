@@ -6,7 +6,9 @@ from collections import deque #hàng đợi hai đầu cho phép chúng ta thêm
 #Class cho các chi tiết tĩnh trong trò chơi, ví dụ đây là cây đuốc, bên dưới sẽ làm animated sprites cho 
 #sprites có thể chuyển động được
 class SpriteObject:
-    def __init__(self, game, path='resources/sprites/static_sprites/candlebra.png', pos=(10.5, 3.5), scale=0.7, shift=0.27):
+    def __init__(self, game, path='resources/sprites/static_sprites/candlebra.png', pos=(10.5, 3.5), scale=0.5, shift=0.5):
+        #scale: Hệ số tỉ lệ cho việc thay đổi kích thước hình ảnh.
+        #shift: Độ dịch chuyển chiều cao của sprite trên màn hình.
         #Thay đổi thông số scale và shift để thay đổi độ cao cho vật thể
         self.game = game
         self.player = game.player
@@ -32,7 +34,7 @@ class SpriteObject:
 
             self.game.raycasting.objects_to_render.append((self.norm_dist, image, pos))
 
-    def get_sprite(self): #Hàm sử lí hình ảnh họa tiết khi người chơi nhìn vào 
+    def get_sprite(self): #Hàm xử lí hình ảnh họa tiết khi người chơi nhìn vào 
         dx = self.x - self.player.x
         dy = self.y - self.player.y
         self.dx, self.dy = dx, dy

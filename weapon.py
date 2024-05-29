@@ -1,6 +1,6 @@
 from sprite_object import *
 
-
+#Lớp Weapon trong Python, kế thừa từ lớp AnimatedSprite, được thiết kế để quản lý vũ khí trong một trò chơi.
 class Weapon(AnimatedSprite):
     def __init__(self, game, path='resources/sprites/weapon/shotgun/0.png', scale=0.4, animation_time=90):
         super().__init__(game=game, path=path, scale=scale, animation_time=animation_time)
@@ -11,9 +11,9 @@ class Weapon(AnimatedSprite):
         self.reloading = False
         self.num_images = len(self.images)
         self.frame_counter = 0
-        self.damage = 50
+        self.damage = 200
 
-    def animate_shot(self):
+    def animate_shot(self): #Quản lý hoạt ảnh của vũ khí khi bắn.
         if self.reloading:
             self.game.player.shot = False
             if self.animation_trigger:
@@ -24,9 +24,9 @@ class Weapon(AnimatedSprite):
                     self.reloading = False
                     self.frame_counter = 0
 
-    def draw(self):
+    def draw(self): #Vẽ vũ khí lên màn hình trò chơi.
         self.game.screen.blit(self.images[0], self.weapon_pos)
 
-    def update(self):
+    def update(self): #Cập nhật trạng thái của vũ khí.
         self.check_animation_time()
         self.animate_shot()

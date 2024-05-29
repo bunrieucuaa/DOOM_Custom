@@ -3,7 +3,7 @@ from npc import *
 from random import choices, randrange
 
 class ObjectHandler: #chịu trách nhiệm quản lý các đối tượng trong trò chơi,
-    #bao gồm việc tạo, cập nhật và kiểm tra trạng thái của các sprite và NPC
+    #bao gồm việc tạo, cập nhật và kiểm tra trạng thái của các sprite và NPC 
     def __init__(self, game):
         self.game = game
         self.sprite_list = []
@@ -16,9 +16,9 @@ class ObjectHandler: #chịu trách nhiệm quản lý các đối tượng tron
         self.npc_positions = {}
 
 
-        self.enemies = 15  # npc count
+        self.enemies = 20  # npc count
         self.npc_types = [SoldierNPC, CacoDemonNPC, CyberDemonNPC]
-        self.weights = [70, 20, 10]
+        self.weights = [50, 30, 20]
         self.restricted_area = {(i, j) for i in range(10) for j in range(10)}
         self.spawn_npc()
 
@@ -55,7 +55,7 @@ class ObjectHandler: #chịu trách nhiệm quản lý các đối tượng tron
         #Nếu danh sách vị trí NPC trống (tức là không còn NPC sống sót), người chơi thắng.
         #Hiển thị thông báo thắng, tạm dừng và bắt đầu trò chơi mới.
         if not len(self.npc_positions):
-            self.game.object_renderer.win()
+            self.game.object_render.win()
             pg.display.flip()
             pg.time.delay(1500)
             self.game.new_game()
@@ -69,6 +69,7 @@ class ObjectHandler: #chịu trách nhiệm quản lý các đối tượng tron
         #ncp thì tọa tộ của 2 npc có thể trùng nhau nên vô lí
         [sprite.update() for sprite in self.sprite_list]
         [npc.update() for npc in self.npc_list]
+        self.check_win()
 
     def add_npc(self, npc):
         self.npc_list.append(npc)
