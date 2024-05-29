@@ -2,7 +2,8 @@ from sprite_object import *
 from npc import *
 from random import choices, randrange
 
-class ObjectHandler:
+class ObjectHandler: #chịu trách nhiệm quản lý các đối tượng trong trò chơi,
+    #bao gồm việc tạo, cập nhật và kiểm tra trạng thái của các sprite và NPC 
     def __init__(self, game):
         self.game = game
         self.sprite_list = []
@@ -15,9 +16,9 @@ class ObjectHandler:
         self.npc_positions = {}
 
 
-        self.enemies = 15  # npc count
+        self.enemies = 20  # npc count
         self.npc_types = [SoldierNPC, CacoDemonNPC, CyberDemonNPC]
-        self.weights = [70, 20, 10]
+        self.weights = [50, 30, 20]
         self.restricted_area = {(i, j) for i in range(10) for j in range(10)}
         self.spawn_npc()
 
@@ -39,7 +40,10 @@ class ObjectHandler:
         # add_npc(NPC(game))
         # add_npc(NPC(game))
 
-    def spawn_npc(self):
+    def spawn_npc(self): #Tạo và thêm các NPC vào trò chơi.
+        #Chọn ngẫu nhiên một loại NPC dựa trên trọng số.
+        #Chọn vị trí ngẫu nhiên cho NPC, đảm bảo vị trí không nằm trong khu vực hạn chế hoặc trên bản đồ thế giới.
+        #Thêm NPC vào danh sách NPC. 
         for i in range(self.enemies):
                 npc = choices(self.npc_types, self.weights)[0]
                 pos = x, y = randrange(self.game.map.cols), randrange(self.game.map.rows)
@@ -47,21 +51,33 @@ class ObjectHandler:
                     pos = x, y = randrange(self.game.map.cols), randrange(self.game.map.rows)
                 self.add_npc(npc(self.game, pos=(x + 0.5, y + 0.5)))
 
-    def check_win(self):
+    def check_win(self): #Kiểm tra xem người chơi đã thắng chưa.
+        #Nếu danh sách vị trí NPC trống (tức là không còn NPC sống sót), người chơi thắng.
+        #Hiển thị thông báo thắng, tạm dừng và bắt đầu trò chơi mới.
         if not len(self.npc_positions):
-            self.game.object_renderer.win()
+            self.game.object_render.win()
             pg.display.flip()
             pg.time.delay(1500)
             self.game.new_game()
 
     def update(self):
+        #Cập nhật trạng thái của tất cả các sprite và NPC.
+        #Cập nhật danh sách vị trí NPC dựa trên các NPC còn sống.
+        #Gọi phương thức update cho mỗi sprite và NPC trong danh sách.
+
         self.npc_positions = {npc.map_pos for npc in self.npc_list if npc.alive} #Phòng tránh việc có nhiều hơn 1
         #ncp thì tọa tộ của 2 npc có thể trùng nhau nên vô lí
         [sprite.update() for sprite in self.sprite_list]
         [npc.update() for npc in self.npc_list]
+        self.check_win()
 
     def add_npc(self, npc):
         self.npc_list.append(npc)
 
     def add_sprite(self, sprite):
         self.sprite_list.append(sprite)
+
+
+    #Thêm một NPC hoặc một sprite vào danh sách tương ứng.
+    #add_npc: Thêm NPC vào danh sách NPC.
+    #add_sprite: Thêm sprite vào danh sách sprite.

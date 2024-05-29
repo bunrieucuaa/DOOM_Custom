@@ -12,14 +12,14 @@ class NPC(AnimatedSprite):
         self.pain_images = self.get_images(self.path + '/pain')
         self.walk_images = self.get_images(self.path + '/walk')
 
-        self.attack_dist = randint(3, 6)
-        self.speed = 0.03
-        self.size = 20
-        self.health = 100
-        self.attack_damage = 10
-        self.accuracy = 0.15
-        self.alive = True
-        self.pain = False
+        self.attack_dist = randint(3, 6) #Khoảng cách npc tấn công
+        self.speed = 0.03 #Tốc độ cho npc
+        self.size = 20 #Kích thước
+        self.health = 100 #Máu
+        self.attack_damage = 10 #Lượng damage gây ra cho player
+        self.accuracy = 0.15 #Độ chính xác
+        self.alive = True #Sống 
+        self.pain = False #Bị tấn công
 
         self.ray_cast_value = False #Check không cho bắn xuyên tường
         self.frame_counter = 0
@@ -64,29 +64,29 @@ class NPC(AnimatedSprite):
                 self.image = self.death_images[0]
                 self.frame_counter += 1
 
-    def animate_pain(self):
+    def animate_pain(self): #GỌi hình ảnh animated của pain image 
         self.animate(self.pain_images)
         if self.animation_trigger:
             self.pain = False
 
-    def check_hit_in_npc(self):
+    def check_hit_in_npc(self): #Nếu player have a shot thì sẽ chuyển pain bằng true
         if self.ray_cast_value and self.game.player.shot:
             if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
                 self.game.sound.npc_pain.play()
                 self.game.player.shot = False
                 self.pain = True
-                self.health -= self.game.weapon.damage
+                self.health -= self.game.weapon.damage #Khi bắn thì lượng damage gây ra bằng với damage của súng
                 self.check_health()
 
 
-    def check_health(self):
+    def check_health(self): #khi health của npc < 1 thì npc sẽ chết và play sound death
         if self.health < 1:
             self.alive = False
             self.game.sound.npc_death.play() 
 
     def run_logic(self):
         if self.alive:
-            self.ray_cast_value = self.ray_cast_player_npc()
+            self.ray_cast_value = self.ray_cast_player_npc() #Thêm logic là khả năng nhìn thấy player khi npc còn sống
             self.check_hit_in_npc()
             if self.pain:
                 self.animate_pain()
@@ -94,7 +94,7 @@ class NPC(AnimatedSprite):
             elif self.ray_cast_value:
                 self.player_search_trigger = True
 
-                if self.dist < self.attack_dist:
+                if self.dist < self.attack_dist: #Xử lí khi npc trong khoảng tấn công thì mới được tấn công
                     self.animate(self.attack_images)
                     self.attack()
                 else:
@@ -110,11 +110,11 @@ class NPC(AnimatedSprite):
         else:
             self.animate_death()
 
-    @property
+    @property #Không có thuộc tính này người chơi có thể bắn xuyên tường
     def map_pos(self):
         return int(self.x), int(self.y)
 
-    def ray_cast_player_npc(self):
+    def ray_cast_player_npc(self): #Xử lí khi npc thấy người chơi, nó sẽ chỉ nhìn vào người chơi, chỉ khi người chơi trốn sau tường nó sẽ ko nhìn thấy 
         if self.game.player.map_pos == self.map_pos:
             return True
 
@@ -177,12 +177,6 @@ class NPC(AnimatedSprite):
         if 0 < player_dist < wall_dist or not wall_dist:
             return True
         return False
-
-    def draw_ray_cast(self):
-        pg.draw.circle(self.game.screen, 'red', (100 * self.x, 100 * self.y), 15)
-        if self.ray_cast_player_npc():
-            pg.draw.line(self.game.screen, 'orange', (100 * self.game.player.x, 100 * self.game.player.y),
-                         (100 * self.x, 100 * self.y), 2)
 
 class SoldierNPC(NPC):
     def __init__(self, game, path='resources/sprites/npc/soldier/0.png', pos=(10.5, 5.5),
