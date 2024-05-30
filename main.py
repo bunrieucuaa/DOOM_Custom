@@ -32,7 +32,7 @@ class Game:
         self.weapon = Weapon(self)
         self.sound = Sound(self)
         self.pathfinding = PathFinding(self)
-        pg.mixer.music.play(-1) #Play theme song
+        # pg.mixer.music.play(-1) #Play theme song
 
     def update(self):
         self.player.update()
